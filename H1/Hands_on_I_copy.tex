@@ -1,0 +1,1764 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={DMI - Hands on 1},
+  pdfauthor={Maria Pau Pijoan \& Leyre Roca (u269315@upf.edu)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{DMI - Hands on 1}
+\author{Maria Pau Pijoan \& Leyre Roca
+(\href{mailto:u269315@upf.edu}{\nolinkurl{u269315@upf.edu}})}
+\date{Last update: 21 January, 2026}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+This practical focuses on data wrangling, exploratory data analysis,
+visualization, and critical comparison with published results using real
+biomedical data.
+
+We will work with the publication
+\href{https://www.sciencedirect.com/science/article/pii/S0092867420306279}{\textbf{Proteomic
+and Metabolomic Characterization of COVID-19 Patient Sera}}
+
+\section{Exercise 1}\label{exercise-1}
+
+Download and load Supplementary Table 1 (``Additional Demographical and
+Baseline Characteristics of COVID-19 Patients and Control Groups'') from
+the supplementary materials of the publication.
+
+\subsection{Exercise 1.1}\label{exercise-1.1}
+
+Reproduce Table 1 from the manuscript using the supplementary data.
+Match the reported summary statistics as closely as possible.
+
+Briefly discuss any discrepancies between your results and the published
+table, and provide possible explanations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# Final code to reproduce Table 1 structure using table1}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\#install.packages(c("readxl","dplyr","stringr","readr","lubridate","table1","janitor","htmltools"))}
+
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(table1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'table1'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     units, units<-
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(htmltools)}
+
+\CommentTok{\# 1) Read data}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"1{-}s2.0{-}S0092867420306279{-}mmc1.xlsx"}\NormalTok{, }\AttributeTok{sheet =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `Test date` -> `Test date...18`
+## * `Test date` -> `Test date...23`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in warn_micro_mu(string = string, replace = replace): Watch out!  The mu or micro symbol is in the input string, and may have been converted to 'm' while 'u' may have been expected.  Consider adding the following to the `replace` argument:
+## The following characters are in the names to clean but are not replaced: \u03bc
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2) Build the main Table{-}1 group column for ALL rows first (critical)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}} \StringTok{"Healthy Control"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}COVID{-}19"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}severe"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Severe"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(group))  }\CommentTok{\# removes any unexpected codes}
+
+\CommentTok{\# 3) Clean variables used in Table 1}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \CommentTok{\# sex coding (you confirmed: 1=Male, 0=Female)}
+    \AttributeTok{sex =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      sex\_g }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Male"}\NormalTok{,}
+\NormalTok{      sex\_g }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}} \StringTok{"Female"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{factor}\NormalTok{(}\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{,}\StringTok{"Female"}\NormalTok{)),}
+
+    \CommentTok{\# numeric age}
+    \AttributeTok{age =} \FunctionTok{parse\_number}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(age\_year)),}
+
+    \CommentTok{\# numeric BMI (IMPORTANT: make it numeric, not character)}
+    \AttributeTok{bmi =} \FunctionTok{na\_if}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(bmi\_h), }\StringTok{"/"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{str\_replace\_all}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{str\_replace\_all}\NormalTok{(}\StringTok{"[\^{}0{-}9.}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{{-}]"}\NormalTok{, }\StringTok{""}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{na\_if}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{parse\_number}\NormalTok{(),}
+
+    \CommentTok{\# dates + time from onset to admission}
+    \AttributeTok{onset\_date =} \FunctionTok{as.Date}\NormalTok{(onset\_date\_f),}
+    \AttributeTok{admission\_date =} \FunctionTok{as.Date}\NormalTok{(admission\_date),}
+    \AttributeTok{onset\_to\_admission =} \FunctionTok{as.numeric}\NormalTok{(admission\_date }\SpecialCharTok{{-}}\NormalTok{ onset\_date),}
+
+    \CommentTok{\# progression date is stored as Excel serial numbers like 43849}
+    \AttributeTok{prog\_num =} \FunctionTok{suppressWarnings}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{na\_if}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(date\_of\_progression\_to\_severe\_state), }\StringTok{"/"}\NormalTok{))),}
+    \AttributeTok{prog\_date =} \FunctionTok{as.Date}\NormalTok{(prog\_num, }\AttributeTok{origin =} \StringTok{"1899{-}12{-}30"}\NormalTok{),}
+
+    \CommentTok{\# time from admission to severe (only meaningful for Severe)}
+    \AttributeTok{admission\_to\_severe =} \FunctionTok{as.numeric}\NormalTok{(prog\_date }\SpecialCharTok{{-}}\NormalTok{ admission\_date)}
+\NormalTok{  )}
+
+\CommentTok{\# 4) Add COVID{-}19 Total rows (duplicate Non{-}severe + Severe and relabel)}
+\NormalTok{df\_total }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{group =} \StringTok{"COVID{-}19 Total"}\NormalTok{)}
+
+\CommentTok{\# 5) Final dataset with 5 columns for Table 1}
+\NormalTok{df5 }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(df, df\_total)}
+
+\NormalTok{df5}\SpecialCharTok{$}\NormalTok{group }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{  df5}\SpecialCharTok{$}\NormalTok{group,}
+  \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Healthy Control"}\NormalTok{,}\StringTok{"Non{-}COVID{-}19"}\NormalTok{,}\StringTok{"COVID{-}19 Total"}\NormalTok{,}\StringTok{"Non{-}severe"}\NormalTok{,}\StringTok{"Severe"}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# sanity check of Ns (should be 28, 25, 65, 37, 28 if matching paper)}
+\FunctionTok{print}\NormalTok{(df5 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(group))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   group               n
+##   <fct>           <int>
+## 1 Healthy Control    28
+## 2 Non-COVID-19       25
+## 3 COVID-19 Total     65
+## 4 Non-severe         37
+## 5 Severe             28
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 6) Formatting functions}
+\NormalTok{my.render.cont }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  x }\OtherTok{\textless{}{-}}\NormalTok{ x[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)]}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(x) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\FunctionTok{return}\NormalTok{(}\StringTok{""}\NormalTok{)}
+\NormalTok{  m }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x); s }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x)}
+\NormalTok{  med }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(x)}
+\NormalTok{  q }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(x, }\FunctionTok{c}\NormalTok{(.}\DecValTok{25}\NormalTok{,.}\DecValTok{75}\NormalTok{))}
+\NormalTok{  r }\OtherTok{\textless{}{-}} \FunctionTok{range}\NormalTok{(x)}
+  \FunctionTok{sprintf}\NormalTok{(}\StringTok{"Mean ± SD: \%.1f ± \%.1f}\SpecialCharTok{\textbackslash{}n}\StringTok{Median (IQR): \%.1f (\%.1f–\%.1f)}\SpecialCharTok{\textbackslash{}n}\StringTok{Range: \%.1f–\%.1f"}\NormalTok{,}
+\NormalTok{          m, s, med, q[}\DecValTok{1}\NormalTok{], q[}\DecValTok{2}\NormalTok{], r[}\DecValTok{1}\NormalTok{], r[}\DecValTok{2}\NormalTok{])}
+\NormalTok{\}}
+\NormalTok{my.render.cat }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{render.categorical.default}\NormalTok{(x)}
+
+\CommentTok{\# 7) Produce Table 1 and save as HTML}
+\NormalTok{t1 }\OtherTok{\textless{}{-}} \FunctionTok{table1}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{ sex }\SpecialCharTok{+}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ bmi }\SpecialCharTok{+}\NormalTok{ onset\_to\_admission }\SpecialCharTok{+}\NormalTok{ admission\_to\_severe }\SpecialCharTok{|}\NormalTok{ group,}
+  \AttributeTok{data =}\NormalTok{ df5,}
+  \AttributeTok{render.continuous =}\NormalTok{ my.render.cont,}
+  \AttributeTok{render.categorical =}\NormalTok{ my.render.cat,}
+  \AttributeTok{render.missing =} \ConstantTok{NULL}\NormalTok{, }\CommentTok{\#Removes the "Missing" rows}
+  \AttributeTok{overall =} \ConstantTok{FALSE}
+\NormalTok{) }
+
+\NormalTok{t1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lccccc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Healthy Control\\(N=28)}} & \textbf{\makecell[c]{Non-COVID-19\\(N=25)}} & \textbf{\makecell[c]{COVID-19 Total\\(N=65)}} & \textbf{\makecell[c]{Non-severe\\(N=37)}} & \textbf{\makecell[c]{Severe\\(N=28)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{sex}}\\
+\hspace{1em}Male & 21 (75.0\%) & 17 (68.0\%) & 39 (60.0\%) & 23 (62.2\%) & 16 (57.1\%)\\
+\hspace{1em}Female & 7 (25.0\%) & 8 (32.0\%) & 26 (40.0\%) & 14 (37.8\%) & 12 (42.9\%)\\
+ & Mean ± SD: 44.4 ± 8.3
+Median (IQR): 45.0 (38.0–51.0)
+Range: 28.0–57.0 & Mean ± SD: 49.2 ± 14.0
+Median (IQR): 53.0 (38.0–61.0)
+Range: 23.0–67.0 & Mean ± SD: 48.1 ± 13.9
+Median (IQR): 47.0 (37.0–56.0)
+Range: 18.0–77.0 & Mean ± SD: 42.9 ± 12.5
+Median (IQR): 43.0 (36.0–51.0)
+Range: 18.0–70.0 & Mean ± SD: 54.8 ± 12.8
+Median (IQR): 55.0 (47.0–64.2)
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{age}}\\
+\hspace{1em}Range: 30.0–77.0\\
+ & Mean ± SD: 24.4 ± 2.7
+Median (IQR): 24.2 (22.5–26.1)
+Range: 19.9–32.9 & Mean ± SD: 23.5 ± 2.7
+Median (IQR): 24.7 (21.1–25.4)
+Range: 19.1–27.4 & Mean ± SD: 24.9 ± 3.0
+Median (IQR): 24.7 (22.6–26.9)
+Range: 18.9–31.3 & Mean ± SD: 24.5 ± 3.2
+Median (IQR): 24.2 (21.9–26.7)
+Range: 18.9–30.7 & Mean ± SD: 25.5 ± 2.5
+Median (IQR): 24.9 (24.1–27.1)
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{bmi}}\\
+\hspace{1em}Range: 21.1–31.3\\
+ &  &  & Mean ± SD: 5.0 ± 4.4
+Median (IQR): 3.0 (2.0–8.0)
+Range: 0.0–23.0 & Mean ± SD: 3.6 ± 3.2
+Median (IQR): 3.0 (2.0–4.0)
+Range: 0.0–14.0 & Mean ± SD: 6.9 ± 5.2
+Median (IQR): 7.5 (2.0–10.0)
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{onset\_to\_admission}}\\
+\hspace{1em}Range: 0.0–23.0\\
+ &  &  & Mean ± SD: 1.4 ± 1.7
+Median (IQR): 1.0 (0.0–2.2)
+Range: -1.0–6.0 &  & Mean ± SD: 1.4 ± 1.7
+Median (IQR): 1.0 (0.0–2.2)
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{admission\_to\_severe}}\\
+\hspace{1em}Range: -1.0–6.0\\
+\bottomrule
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{htmltools}\SpecialCharTok{::}\FunctionTok{save\_html}\NormalTok{(t1, }\StringTok{"table1.html"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Discrepancies between the reproduced table and the published Table 1:
+
+\begin{itemize}
+\tightlist
+\item
+  Small differences are observed in some summary statistics, for
+  instance the mean or median and IQR for age, BMI and time-related
+  variables. These differences are likely due to rounding conventions,
+  differences in handling missing values or slightly different inclusion
+  criteria applied by the authors, like excluding specific observations
+  or use of pre-cleaned datasets.
+\item
+  Furthermore, larger discrepancies are observed in the severe COVID-19
+  subgroup, especially for age, BMI and time-related variables, showing
+  lower values than those reported in the published table. One possible
+  explanation is that the supplementary dataset includes all recorded
+  severe cases, whereas the published analysis may have excluded
+  specific observations, like patients with incomplete records or
+  implausible dates.
+\item
+  The reproduced table includes a small negative value in the range of
+  time from admission to severe disease. This likely arises from
+  inconsistencies or recording differences in date fields within the
+  supplementary data and may reflect same-day events or data-entry
+  timing issues that were corrected or excluded in the published
+  analysis.
+\item
+  Also, several variables reported in the original table, such as
+  symptoms chest, CT findings, comorbodities, oxygenation index and
+  treatments, are not present in the supplementary excel file.
+  Consequently, these rows could not be reproduced and were
+  appropriately ommited.
+\end{itemize}
+
+All in all, the reproduced table matches the published table 1 as
+closely as possible, given the available date. The remaining
+discrepancies are minor and can be reasonably explained by differences
+in data preprocessing, rounding, missing-data handling and incomplete
+variable availability in the supplementary dataset.
+
+\subsection{Exercise 1.2}\label{exercise-1.2}
+
+Perform an exploratory data analysis (EDA) of the dataset. At a minimum,
+include:
+
+\begin{itemize}
+\tightlist
+\item
+  Descriptive statistics for key variables\\
+\item
+  Appropriate visualizations (e.g.~distributions, group comparisons)\\
+\item
+  A brief written summary of notable patterns, anomalies, or data
+  quality issues
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Descriptive statistics for key variables}
+\NormalTok{df\_new\_variables }\OtherTok{\textless{}{-}}\NormalTok{ df[, }\FunctionTok{c}\NormalTok{(}\DecValTok{19}\SpecialCharTok{:}\DecValTok{22}\NormalTok{, }\DecValTok{24}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)]}
+\FunctionTok{summary}\NormalTok{(df\_new\_variables)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  wbc_count_109_l  lymphocyte_count_109_l monocyte_count_109_l
+##  Min.   : 1.900   Min.   :0.2000         Min.   :0.1000      
+##  1st Qu.: 4.970   1st Qu.:0.7289         1st Qu.:0.3310      
+##  Median : 6.105   Median :1.1849         Median :0.4505      
+##  Mean   : 6.921   Mean   :1.2551         Mean   :0.4792      
+##  3rd Qu.: 7.720   3rd Qu.:1.6000         3rd Qu.:0.6000      
+##  Max.   :24.200   Max.   :4.1000         Max.   :1.2402      
+##  NA's   :28       NA's   :28             NA's   :28          
+##  platelet_count_109_l  crp_i_mg_l          alt_j_u_l        ast_k_u_l     
+##  Min.   : 37.0        Length:118         Min.   :  7.00   Min.   : 10.00  
+##  1st Qu.:158.5        Class :character   1st Qu.: 16.40   1st Qu.: 21.00  
+##  Median :199.5        Mode  :character   Median : 23.55   Median : 26.00  
+##  Mean   :195.6                           Mean   : 38.62   Mean   : 41.86  
+##  3rd Qu.:228.8                           3rd Qu.: 37.00   3rd Qu.: 35.00  
+##  Max.   :334.0                           Max.   :824.00   Max.   :743.00  
+##  NA's   :28                              NA's   :28       NA's   :28      
+##    ggt_l_u_l      tbil_m_mmol_l     dbil_n_mmol_l     creatinine_mmol_l
+##  Min.   :  9.00   Min.   :  3.400   Min.   :  0.800   Min.   :  4.00   
+##  1st Qu.: 18.25   1st Qu.:  9.675   1st Qu.:  3.125   1st Qu.: 66.00   
+##  Median : 28.50   Median : 13.400   Median :  4.750   Median : 76.50   
+##  Mean   : 39.59   Mean   : 20.307   Mean   :  9.022   Mean   : 82.26   
+##  3rd Qu.: 48.75   3rd Qu.: 18.800   3rd Qu.:  6.650   3rd Qu.: 89.00   
+##  Max.   :264.00   Max.   :403.400   Max.   :254.400   Max.   :335.00   
+##  NA's   :28       NA's   :28        NA's   :28        NA's   :28       
+##  glucose_mmol_l  
+##  Min.   : 3.650  
+##  1st Qu.: 5.433  
+##  Median : 6.260  
+##  Mean   : 7.484  
+##  3rd Qu.: 8.095  
+##  Max.   :25.630  
+##  NA's   :28
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("ggplot2")}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+
+\CommentTok{\# Sex bar plot {-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{sex\_bar\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{sex, }\AttributeTok{fill =}\NormalTok{ sex)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Male vs Female"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Sex"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  )}
+
+\NormalTok{sex\_bar\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Age histogram {-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{age\_histogram }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Age distribution"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Age (years)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  )}
+
+\NormalTok{age\_histogram}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bmi histogram {-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{bmi\_histogram }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ bmi)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Body Mass Index distribution"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"BMI"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  )}
+
+\NormalTok{bmi\_histogram}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 11 rows containing non-finite outside the scale range
+## (`stat_bin()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Onset to admission {-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{onset\_to\_admission\_histogram }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ onset\_to\_admission)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Time from Onset to Admission"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Days"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  )}
+
+\NormalTok{onset\_to\_admission\_histogram}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 53 rows containing non-finite outside the scale range
+## (`stat_bin()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Admission\_to\_severe {-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{admission\_to\_severe\_histogram }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ admission\_to\_severe)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Time from Admission to Severe"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Days"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  )}
+
+\NormalTok{admission\_to\_severe\_histogram }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 127 rows containing non-finite outside the scale range
+## (`stat_bin()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Group comparisons {-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\#group is the COVID status!}
+
+\CommentTok{\#Sex by group {-}{-}{-}{-}{-}}
+\NormalTok{sex\_by\_group }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{fill =}\NormalTok{ sex)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"fill"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Sex distribution by group"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Proportion"}
+\NormalTok{  )}
+
+\NormalTok{sex\_by\_group }
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-6.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Age by group {-}{-}{-}{-}{-}}
+\NormalTok{age\_by\_group }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ age)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Age by group"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Age (years)"}
+\NormalTok{  )}
+
+
+\NormalTok{age\_by\_group}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-7.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#BMI by group {-}{-}{-}{-}{-}}
+\NormalTok{bmi\_by\_group }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df5, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ bmi)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Body mass index by group"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"BMI"}
+\NormalTok{  )}
+
+\NormalTok{bmi\_by\_group}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 11 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-8.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Time variables by severity }
+\CommentTok{\#Time from symtpom onset to hospital admission was explored only among COVID{-}19 patients, as this variable was not defined for healthy controls or non{-}COVID individuals. }
+\NormalTok{covid\_df }\OtherTok{\textless{}{-}}\NormalTok{ df5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(covid\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ onset\_to\_admission, }\AttributeTok{fill =}\NormalTok{ group)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"Non{-}severe"} \OtherTok{=} \StringTok{"\#4DAF4A"}\NormalTok{,  }\CommentTok{\# green}
+      \StringTok{"Severe"} \OtherTok{=} \StringTok{"\#E41A1C"}       \CommentTok{\# red}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Time from onset to admission by COVID{-}19 severity"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"COVID{-}19 severity"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Days"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-2-9.pdf}}
+Exploratory data analysis was performed to describe the demographic and
+clinical characteristics of the study population. Sex, age and BMI
+distributions were first explored using descriptive statistics and
+graphical representations. Age and BMI showed reasonable ranges without
+evident implausible values. Some clinical time variables, such as time
+from symptom onset to hospital admission and time from admission to
+severe disease, were only defined for subsets of COVID-19 patients,
+reflecting the study design rather than random missingness.
+
+Group comparisons suggested differences in age distributions across
+COVID-19 severity groups, while BMI appeared broadly similar between
+groups. Sex distribution varied across clinical groups, with a higher
+proportion of males observed among COVID-19 patients. Time from symptom
+onset to admission was explored only among COVID-19 patients and
+appeared to differ between non-severe and severe cases. Overall, no
+major data quality issues were identified, and the dataset was
+considered suitable for further analysis.
+
+\section{Exercise 2}\label{exercise-2}
+
+\subsection{Exercise 2.1}\label{exercise-2.1}
+
+Reproduce Supplementary Figure 1 using the data without modifying or
+removing any observations. Use the same variables and groupings as in
+the original figure.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(janitor)}
+
+
+\CommentTok{\# Pivot data to "Long" format so all variables can be plotted at once}
+\CommentTok{\#Pivot means changing the shape (layout) of a dataset, wuthout changing the values. Only reorganizewhere the values sit in the table. }
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"1{-}s2.0{-}S0092867420306279{-}mmc1.xlsx"}\NormalTok{, }\AttributeTok{sheet =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `Test date` -> `Test date...18`
+## * `Test date` -> `Test date...23`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(df) }\CommentTok{\#to have clean\_names available, use library(janitor)!!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in warn_micro_mu(string = string, replace = replace): Watch out!  The mu or micro symbol is in the input string, and may have been converted to 'm' while 'u' may have been expected.  Consider adding the following to the `replace` argument:
+## The following characters are in the names to clean but are not replaced: \u03bc
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_new\_variables }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      group\_d }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}COVID{-}19"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}severe"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Severe"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{group =} \FunctionTok{factor}\NormalTok{(group, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}COVID{-}19"}\NormalTok{, }\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{))}
+\NormalTok{  )}
+
+\CommentTok{\# Variables (columns) to plot (AND order to match the original figure)}
+\NormalTok{marker\_order }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"wbc\_count\_109\_l"}\NormalTok{,}
+  \StringTok{"lymphocyte\_count\_109\_l"}\NormalTok{,}
+  \StringTok{"monocyte\_count\_109\_l"}\NormalTok{,}
+  \StringTok{"platelet\_count\_109\_l"}\NormalTok{,}
+  \StringTok{"crp\_i\_mg\_l"}\NormalTok{,}
+  \StringTok{"alt\_j\_u\_l"}\NormalTok{,}
+  \StringTok{"ast\_k\_u\_l"}\NormalTok{,}
+  \StringTok{"ggt\_l\_u\_l"}\NormalTok{,}
+  \StringTok{"tbil\_m\_mmol\_l"}\NormalTok{,}
+  \StringTok{"dbil\_n\_mmol\_l"}\NormalTok{,}
+  \StringTok{"creatinine\_mmol\_l"}\NormalTok{,}
+  \StringTok{"glucose\_mmol\_l"}
+\NormalTok{)}
+
+\NormalTok{vars }\OtherTok{\textless{}{-}}\NormalTok{ marker\_order}
+
+\CommentTok{\# Nice facet labels }
+\NormalTok{lab }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{wbc\_count\_109\_l =} \StringTok{"White blood cell (WBC)"}\NormalTok{,}
+  \AttributeTok{lymphocyte\_count\_109\_l =} \StringTok{"Lymphocyte"}\NormalTok{,}
+  \AttributeTok{monocyte\_count\_109\_l =} \StringTok{"Monocyte"}\NormalTok{,}
+  \AttributeTok{platelet\_count\_109\_l =} \StringTok{"Platelet"}\NormalTok{,}
+  \AttributeTok{crp\_i\_mg\_l =} \StringTok{"C{-}reactive protein (CRP)"}\NormalTok{,}
+  \AttributeTok{alt\_j\_u\_l =} \StringTok{"Alanine aminotransferase (ALT)"}\NormalTok{,}
+  \AttributeTok{ast\_k\_u\_l =} \StringTok{"Aspartate aminotransferase (AST)"}\NormalTok{,}
+  \AttributeTok{ggt\_l\_u\_l =} \StringTok{"Glutamyltransferase (GGT)"}\NormalTok{,}
+  \AttributeTok{tbil\_m\_mmol\_l =} \StringTok{"Total bilirubin (TBIL)"}\NormalTok{,}
+  \AttributeTok{dbil\_n\_mmol\_l =} \StringTok{"Direct bilirubin (DBIL)"}\NormalTok{,}
+  \AttributeTok{creatinine\_mmol\_l =} \StringTok{"Creatinine"}\NormalTok{,}
+  \AttributeTok{glucose\_mmol\_l =} \StringTok{"Glucose"}
+\NormalTok{)}
+
+\CommentTok{\#Some of the vars contain NA, and we cannot plot that, so as the exercise say that we cannot remove anything, convert NA into values. }
+\NormalTok{df\_fix }\OtherTok{\textless{}{-}}\NormalTok{ df\_new\_variables }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(vars), }\SpecialCharTok{\textasciitilde{}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{parse\_number}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(.))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: There was 1 warning in `mutate()`.
+## i In argument: `across(all_of(vars), ~readr::parse_number(as.character(.)))`.
+## Caused by warning:
+## ! 4 parsing failures.
+## row col expected actual
+##  67  -- a number      /
+##  69  -- a number      /
+##  77  -- a number      /
+##  78  -- a number      /
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\#mutate modifies existing columns or create new ones, and apply this trans formation to all 12 markers. }
+  \CommentTok{\# (.) means the current colunm being processed, as.character() forces the column to be treated as text. readr::parse\_number extracts the numeric part of a string. }
+
+\NormalTok{dlong }\OtherTok{\textless{}{-}}\NormalTok{ df\_fix }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(group, }\FunctionTok{all\_of}\NormalTok{(vars)) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#this keeps only the group and the 12 clinical variables listed in vars. }
+  \FunctionTok{pivot\_longer}\NormalTok{( }\CommentTok{\#the pivot\_longer() needs all values to be same type (numeric)}
+    \AttributeTok{cols =} \FunctionTok{all\_of}\NormalTok{(vars), }\CommentTok{\#stacks all 12 markers columns into one column}
+    \AttributeTok{names\_to =} \StringTok{"Marker"}\NormalTok{, }\CommentTok{\#stores their names in Marker}
+    \AttributeTok{values\_to =} \StringTok{"Value"} \CommentTok{\#stores the measurements in Value}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Marker =} \FunctionTok{factor}\NormalTok{(Marker, }\AttributeTok{levels =}\NormalTok{ marker\_order, }\AttributeTok{labels =}\NormalTok{ lab[marker\_order])}
+\NormalTok{  ) }
+\CommentTok{\#levels= orders the markers the way I want, and without it, they would be alphabetically ordered. }
+\CommentTok{\#labels = lab [marker\_order] replaces ugly variable names with human{-}readable titles. }
+
+\CommentTok{\#The code above transforms my dataset into a format where, each row = one measurement, each group = patient group, each marker = clinical value (like wbc, crp...) and each value = numeric value of that variable}
+
+\CommentTok{\# Pairwise comparisons (stars) {-}}
+\NormalTok{comps }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{( }\CommentTok{\#each element of the listis a pair of group names, so compare both groups. }
+  \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}COVID{-}19"}\NormalTok{, }\StringTok{"Non{-}severe"}\NormalTok{), }
+  \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{),}
+  \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}COVID{-}19"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# One plot, 12 panels (ordered like the article)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dlong, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ Value, }\AttributeTok{color =}\NormalTok{ group)) }\SpecialCharTok{+}
+  \CommentTok{\# Add the bars representing the Mean}
+  \FunctionTok{stat\_summary}\NormalTok{(}
+    \AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+    \AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }
+    \AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }
+    \AttributeTok{linewidth =} \DecValTok{1}\NormalTok{, }
+    \AttributeTok{width =} \FloatTok{0.7}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \CommentTok{\# Add the Error Bars (Standard Error)}
+  \FunctionTok{stat\_summary}\NormalTok{(}
+    \AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+    \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+    \AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }
+    \AttributeTok{color =} \StringTok{"black"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \CommentTok{\# Add the individual jittered points}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# Create the multi{-}panel grid}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Marker, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# Statistical comparisons (stays the same)}
+  \FunctionTok{stat\_compare\_means}\NormalTok{(}
+    \AttributeTok{comparisons =}\NormalTok{ comps, }
+    \AttributeTok{method =} \StringTok{"wilcox.test"}\NormalTok{,}
+    \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+    \AttributeTok{hide.ns =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{label.y.npc =} \StringTok{"top"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \CommentTok{\# Manual colors for the group outlines}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"Non{-}COVID{-}19"} \OtherTok{=} \StringTok{"\#1f77b4"}\NormalTok{, }
+      \StringTok{"Non{-}severe"}   \OtherTok{=} \StringTok{"\#ff7f0e"}\NormalTok{, }
+      \StringTok{"Severe"}       \OtherTok{=} \StringTok{"\#d62728"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \CommentTok{\# Styling and Cleanup}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{axis.ticks.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{,}
+\NormalTok{  )}
+
+\CommentTok{\# Save the plot}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"SuppFig1\_2\_1.png"}\NormalTok{, p, }\AttributeTok{width =} \DecValTok{14}\NormalTok{, }\AttributeTok{height =} \DecValTok{12}\NormalTok{, }\AttributeTok{dpi =} \DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_signif()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(12.2, 6.6, 13.5, 6.8, 5.6, 6.5, 9.6, 7.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(12.2, 6.6, 13.5, 6.8, 5.6, 6.5, 9.6, 7.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(11.7, 4.93, 3.43, 3.76, 3.17, 5.09, 5.24, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.8, 1.9, 0.9, 3, 0.5, 0.6, 0.9, 1.6, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.8, 1.9, 0.9, 3, 0.5, 0.6, 0.9, 1.6, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(2.6793, 1.64169, 0.721672, 1.45888, 1.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.7, 0.6, 0.3, 0.5, 0.2, 0.4, 0.8, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.7, 0.6, 0.3, 0.5, 0.2, 0.4, 0.8, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(1.2402, 0.49793, 0.310072, 0.22184, 0.4, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(116, 166, 332, 171, 80, 37, 123, 225, 214, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(116, 166, 332, 171, 80, 37, 123, 225, 214, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(181, 194, 205, 144, 144, 221, 205, 211, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(22.3, NA, 10.9, NA, 10.3, 49, 103.9, 2.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(22.3, NA, 10.9, NA, 10.3, 49, 103.9, 2.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(17.9, 1.9, 89.9, 0.5, 12.46, 4, 5.2, 7.37, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 824, 9, 73, 30, 54, 97, 10, 12, 30, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 824, 9, 73, 30, 54, 97, 10, 12, 30, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 48.2, 22, 27.1, 30, 10, 16, 37.3, 20, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(172, 743, 18, 58, 35, 66, 85, 19, 25, 35, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(172, 743, 18, 58, 35, 66, 85, 19, 25, 35, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(37, 34, 30, 23, 30, 19, 19, 21, 28, 18, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(15, 148, 9, 264, 27, 57, 57, 17, 28, 175, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(15, 148, 9, 264, 27, 57, 57, 17, 28, 175, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(55, 59, 30, 23, 29, 13, 21, 48, 16, 20, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(14.9, 403.4, 16, 26.4, 10.8, 146.9, 12.8, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(14.9, 403.4, 16, 26.4, 10.8, 146.9, 12.8, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(8.2, 14.1, 12.3, 18.9, 13.1, 6, 5.9, 14.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6, 254.4, 2.2, 10.4, 4.9, 78.5, 5.3, 4.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6, 254.4, 2.2, 10.4, 4.9, 78.5, 5.3, 4.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(2.5, 4.8, 3.9, 6.3, 5.5, 2.5, 2.1, 5.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(67, 87, 4, 58, 65, 82, 79, 68, 95, 114, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(67, 87, 4, 58, 65, 82, 79, 68, 95, 114, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(80, 94, 93, 88, 110, 61, 55, 88, 84, 77, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(5.66, 3.65, 6.85, 4.25, 5.58, 5.87, 6.27, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6.18, 5.25, 9.21, 5.88, 5.12, 4.61, 7.21, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing non-finite outside the scale range
+## (`stat_signif()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(12.2, 6.6, 13.5, 6.8, 5.6, 6.5, 9.6, 7.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(12.2, 6.6, 13.5, 6.8, 5.6, 6.5, 9.6, 7.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(11.7, 4.93, 3.43, 3.76, 3.17, 5.09, 5.24, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.8, 1.9, 0.9, 3, 0.5, 0.6, 0.9, 1.6, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.8, 1.9, 0.9, 3, 0.5, 0.6, 0.9, 1.6, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(2.6793, 1.64169, 0.721672, 1.45888, 1.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.7, 0.6, 0.3, 0.5, 0.2, 0.4, 0.8, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(0.7, 0.6, 0.3, 0.5, 0.2, 0.4, 0.8, 0.6, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(1.2402, 0.49793, 0.310072, 0.22184, 0.4, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(116, 166, 332, 171, 80, 37, 123, 225, 214, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(116, 166, 332, 171, 80, 37, 123, 225, 214, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(181, 194, 205, 144, 144, 221, 205, 211, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(22.3, NA, 10.9, NA, 10.3, 49, 103.9, 2.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(22.3, NA, 10.9, NA, 10.3, 49, 103.9, 2.1, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(17.9, 1.9, 89.9, 0.5, 12.46, 4, 5.2, 7.37, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 824, 9, 73, 30, 54, 97, 10, 12, 30, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 824, 9, 73, 30, 54, 97, 10, 12, 30, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(52, 48.2, 22, 27.1, 30, 10, 16, 37.3, 20, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(172, 743, 18, 58, 35, 66, 85, 19, 25, 35, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(172, 743, 18, 58, 35, 66, 85, 19, 25, 35, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(37, 34, 30, 23, 30, 19, 19, 21, 28, 18, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(15, 148, 9, 264, 27, 57, 57, 17, 28, 175, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(15, 148, 9, 264, 27, 57, 57, 17, 28, 175, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(55, 59, 30, 23, 29, 13, 21, 48, 16, 20, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(14.9, 403.4, 16, 26.4, 10.8, 146.9, 12.8, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(14.9, 403.4, 16, 26.4, 10.8, 146.9, 12.8, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(8.2, 14.1, 12.3, 18.9, 13.1, 6, 5.9, 14.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6, 254.4, 2.2, 10.4, 4.9, 78.5, 5.3, 4.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6, 254.4, 2.2, 10.4, 4.9, 78.5, 5.3, 4.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(2.5, 4.8, 3.9, 6.3, 5.5, 2.5, 2.1, 5.7, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(67, 87, 4, 58, 65, 82, 79, 68, 95, 114, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(67, 87, 4, 58, 65, 82, 79, 68, 95, 114, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(80, 94, 93, 88, 110, 61, 55, 88, 84, 77, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(5.66, 3.65, 6.85, 4.25, 5.58, 5.87, 6.27, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(c(6.18, 5.25, 9.21, 5.88, 5.12, 4.61, 7.21, :
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 340 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\subsection{Exercise 2.2}\label{exercise-2.2}
+
+Identify and handle outliers using an appropriate and well-justified
+method (e.g.~removal, transformation, or robust statistics).
+
+Reproduce Supplementary Figure 1 after outlier handling and discuss how
+and why the results change.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Seeing the plot above, we can observe that there are many dots high above the rest of the group. To deal with them, we can: Remove, Transform (log the data pulls extreme outliers closer to the mean, making the distribution more normal), or use robust statistics ( use median and IQR instead of mean and SD. By using the median, this is more robust because it is not pulled away by a single extreme value)}
+
+\CommentTok{\# REMOVAL {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#install.packages("ggstatsplot")}
+\CommentTok{\#install.packages("tidyverse")}
+\CommentTok{\#install.packages("patchwork")}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v forcats 1.0.1     v tibble  3.3.1
+## v purrr   1.2.1     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggstatsplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## You can cite this package as:
+##      Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach.
+##      Journal of Open Source Software, 6(61), 3167, doi:10.21105/joss.03167
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(patchwork)}
+
+\NormalTok{mydata}\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"1{-}s2.0{-}S0092867420306279{-}mmc1.xlsx"}\NormalTok{, }\AttributeTok{sheet =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `Test date` -> `Test date...18`
+## * `Test date` -> `Test date...23`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(mydata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in warn_micro_mu(string = string, replace = replace): Watch out!  The mu or micro symbol is in the input string, and may have been converted to 'm' while 'u' may have been expected.  Consider adding the following to the `replace` argument:
+## The following characters are in the names to clean but are not replaced: \u03bc
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Define the variables in the EXACT order you want them to appear in the grid}
+
+\NormalTok{ordered\_vars }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"wbc\_count\_109\_l"}\NormalTok{, }\StringTok{"lymphocyte\_count\_109\_l"}\NormalTok{, }\StringTok{"monocyte\_count\_109\_l"}\NormalTok{, }
+  \StringTok{"platelet\_count\_109\_l"}\NormalTok{, }\StringTok{"crp\_i\_mg\_l"}\NormalTok{, }\StringTok{"alt\_j\_u\_l"}\NormalTok{, }
+  \StringTok{"ast\_k\_u\_l"}\NormalTok{,          }
+  \StringTok{"ggt\_l\_u\_l"}\NormalTok{,          }
+  \StringTok{"tbil\_m\_mmol\_l"}\NormalTok{,       }
+  \StringTok{"dbil\_n\_mmol\_l"}\NormalTok{,       }
+  \StringTok{"creatinine\_mmol\_l"}\NormalTok{,   }
+  \StringTok{"glucose\_mmol\_l"}       
+\NormalTok{)}
+
+\CommentTok{\# Data Processing Pipeline}
+\NormalTok{mydata\_ordered }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Grouping logic}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      group\_d }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}COVID{-}19"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}severe"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Severe"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{group =} \FunctionTok{factor}\NormalTok{(group, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}COVID{-}19"}\NormalTok{, }\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(group)) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \CommentTok{\# Convert measurements to numeric}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(ordered\_vars), as.numeric)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(group, }\FunctionTok{all\_of}\NormalTok{(ordered\_vars)) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \CommentTok{\# Pivot to long format}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \SpecialCharTok{{-}}\NormalTok{group, }\AttributeTok{names\_to =} \StringTok{"measurement"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"value"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \CommentTok{\# Convert measurement to a factor using the order defined above}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{measurement =} \FunctionTok{factor}\NormalTok{(measurement, }\AttributeTok{levels =}\NormalTok{ ordered\_vars)) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \CommentTok{\# Outlier cleaning (per group and per marker)}
+  \FunctionTok{group\_by}\NormalTok{(group, measurement) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{q1 =} \FunctionTok{quantile}\NormalTok{(value, }\FloatTok{0.25}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{q3 =} \FunctionTok{quantile}\NormalTok{(value, }\FloatTok{0.75}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{iqr =}\NormalTok{ q3 }\SpecialCharTok{{-}}\NormalTok{ q1,}
+    \AttributeTok{up =}\NormalTok{ q3 }\SpecialCharTok{+}\NormalTok{ (}\FloatTok{1.5} \SpecialCharTok{*}\NormalTok{ iqr),}
+    \AttributeTok{low =}\NormalTok{ q1 }\SpecialCharTok{{-}}\NormalTok{ (}\FloatTok{1.5} \SpecialCharTok{*}\NormalTok{ iqr),}
+    \AttributeTok{cleaned\_value =} \FunctionTok{ifelse}\NormalTok{(value }\SpecialCharTok{\textgreater{}}\NormalTok{ up }\SpecialCharTok{|}\NormalTok{ value }\SpecialCharTok{\textless{}}\NormalTok{ low, }\ConstantTok{NA}\NormalTok{, value)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ungroup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: There was 1 warning in `mutate()`.
+## i In argument: `across(all_of(ordered_vars), as.numeric)`.
+## Caused by warning:
+## ! NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Final Plotting}
+\NormalTok{s }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(mydata\_ordered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ cleaned\_value, }\AttributeTok{color =}\NormalTok{ group)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \CommentTok{\# Facet using the factor (which now follows our custom order)}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{measurement, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"Non{-}COVID{-}19"} \OtherTok{=} \StringTok{"\#4A69BD"}\NormalTok{, }
+    \StringTok{"Non{-}severe"}   \OtherTok{=} \StringTok{"\#F6B93B"}\NormalTok{, }
+    \StringTok{"Severe"}       \OtherTok{=} \StringTok{"\#B71C1C"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{), }\CommentTok{\# Makes labels clearer}
+    \AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{,}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{(), }
+    \AttributeTok{axis.ticks.x =} \FunctionTok{element\_blank}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Supplementary Figure 1 (Ordered \& Cleaned)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Value"}\NormalTok{, }\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{)}
+
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"SuppFig1\_2\_2.png"}\NormalTok{, s, }\AttributeTok{width =} \DecValTok{14}\NormalTok{, }\AttributeTok{height =} \DecValTok{12}\NormalTok{, }\AttributeTok{dpi =} \DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing non-finite outside the scale range
+## (`stat_summary()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 411 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Count removed outliers}
+\NormalTok{outlier\_summary }\OtherTok{\textless{}{-}}\NormalTok{ mydata\_ordered }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(measurement, group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{total\_samples =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{outliers\_removed =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(cleaned\_value) }\SpecialCharTok{\&} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(value)),}
+    \AttributeTok{percent\_removed =}\NormalTok{ (outliers\_removed }\SpecialCharTok{/}\NormalTok{ total\_samples) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(outliers\_removed }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\CommentTok{\# Only show markers that actually had outliers}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'measurement'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{view}\NormalTok{(outlier\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+The primary difference between the original Supplementary Figure 1 and
+the reproduced ordered and cleaned figure is the significant improvemnt
+in visual clarity and normalization of the y-axis scales. In the
+original figure, extreme outliers (such as an ALT value of around 810 or
+an AST value near 800) forced the y-axis to extend to very high limits.
+This ``squashed'' the bars representing the means, making it difficutl
+to visually istinguish differences between groups. In the cleaned
+figure, removeing these extreme values, allowed the y-axis to make a
+``zoom in'', making the biological trends and differences between the
+non-COVID19, non-severe and severe groups much more apparent. In the
+original figure, the dots looked more concentrated because the scale was
+so large. By removing the extreme points, the plot expands the middle
+range, and that's the reason why the dots now look more spread out.
+
+Regarding the outlier removal process, was performed per group and per
+marker using the 1.5*IQR method. This ensured that higher baseline
+levels in the severe group were not incorrectly categorized as outliers
+when compared to other groups. Furthermore, a total of 30 distinct
+group/marker combinations had outliers removed.
+
+The fact that the original paper kept these extreme values (original
+figure), suggest that they prioritized showing the full clinical range
+of COVID19, including extreme organ failure, rather than achieving a
+``normal'' statistical distribution. This reproduction demonstrates that
+standard IQR cleaning focuses on the typical case but can make the
+remaining variance appear more pronounced when the axis is allowed to
+scale freely.
+
+Among the groups and the features shown, we cannot see much which
+features change between groups. The only one that varyis in both plots
+(the one obtained in exercise 2.1 and the second one in 22) is the
+glucose concentration, which appears to be in higher concentration in
+the sever group.
+
+So all in all, the 30 identified outliers were responsible for that
+massive vertical stretching in the original. Removing them did not just
+clean the dots, it changed the resolution of the clinical markers.
+
+\section{Exercise 3}\label{exercise-3}
+
+Create a heatmap of the biomarker data. Include group and gender as
+annotation variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#In the heatmap, each row typically represents a single patient (sample) and each column represents a biomarker (wbc, alt, glucose, ...) The intensity of the color indicates the elvel of the biomarker!}
+\CommentTok{\#As biomarkers have very different units, units must be scaled so all of them are compared ona relative basis. }
+\CommentTok{\#by grouping by group, allows to see if "severe" patients hve a distinct color pattern compared to the "healthy" controls}
+\CommentTok{\#grouping by gender, helps identify if biomarker patterns are influenced by biological sex. }
+
+\CommentTok{\#install.packages("pheatmap")}
+\FunctionTok{library}\NormalTok{(pheatmap)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{mydata }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Create a group column inside mydata dataframe}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      group\_d }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}COVID{-}19"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}severe"}\NormalTok{,}
+\NormalTok{      group\_d }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Severe"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{group =} \FunctionTok{factor}\NormalTok{(group, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}COVID{-}19"}\NormalTok{, }\StringTok{"Non{-}severe"}\NormalTok{, }\StringTok{"Severe"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(group))}
+
+
+\FunctionTok{view}\NormalTok{(mydata)}
+  
+\CommentTok{\#PREPARE THE NUMERIC MATRIX:}
+\NormalTok{heatmap\_data }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\#select ID, group, sex and ordered biomarkers}
+  \FunctionTok{select}\NormalTok{(patient\_id\_a, group, sex\_g, }\FunctionTok{all\_of}\NormalTok{(ordered\_vars)) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\#Remove rows with missing values }
+  \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\#Turn patient\_id into row names}
+  \FunctionTok{column\_to\_rownames}\NormalTok{(}\StringTok{"patient\_id\_a"}\NormalTok{)}
+
+\CommentTok{\#CREATE ANNOTATION DATAFRAME:}
+\NormalTok{annotation\_col }\OtherTok{\textless{}{-}}\NormalTok{ heatmap\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(group, sex\_g) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Group =}\NormalTok{ group, }\AttributeTok{Gender =}\NormalTok{ sex\_g)}
+  
+\CommentTok{\#we must exclude "group" and "sex\_g" from the matrix}
+\NormalTok{matrix\_to\_plot }\OtherTok{\textless{}{-}}\NormalTok{ heatmap\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(ordered\_vars))}
+
+
+\NormalTok{matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l\_2}\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l}\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"/"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l)}
+\NormalTok{matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l}\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\textless{}1.3"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l)}
+\NormalTok{matrix\_to\_plot }\OtherTok{\textless{}{-}}\NormalTok{ matrix\_to\_plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{crp\_i\_mg\_l\_2)}
+\NormalTok{matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l}\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(matrix\_to\_plot}\SpecialCharTok{$}\NormalTok{crp\_i\_mg\_l)}
+\CommentTok{\# Restore row names (Patient IDs) because the apply() function strips them}
+\FunctionTok{rownames}\NormalTok{(matrix\_to\_plot) }\OtherTok{\textless{}{-}} \FunctionTok{rownames}\NormalTok{(heatmap\_data)}
+
+\CommentTok{\#?apply()}
+
+\NormalTok{h }\OtherTok{\textless{}{-}} \FunctionTok{pheatmap}\NormalTok{(}
+  \FunctionTok{t}\NormalTok{(matrix\_to\_plot),           }\CommentTok{\# Transpose so biomarkers are rows and patients are columns}
+  \AttributeTok{scale =} \StringTok{"row"}\NormalTok{,              }\CommentTok{\# Normalizes data (Z{-}score) so markers are comparable}
+  \AttributeTok{annotation\_col =}\NormalTok{ annotation\_col, }
+\NormalTok{)}
+
+\NormalTok{h}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Hands_on_I_copy_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Heatmap.png"}\NormalTok{, h, }\AttributeTok{width =} \DecValTok{14}\NormalTok{, }\AttributeTok{height =} \DecValTok{12}\NormalTok{, }\AttributeTok{dpi =} \DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Conclusion}\label{conclusion}
+
+Write a concise conclusion (1 paragraphs) summarizing the main
+differences observed across the three patient groups based on the twelve
+clinical parameters. Support your statements with evidence from your
+analyses.
+
+Clinical characterization across the three patient groups reveals that
+severe COVID-19 is defined by systemic inflammatory and metabolic
+dysregulation. Glucose and CRP are the most significant differentiators,
+with the Severe group exhibiting markedly higher median levels, elevated
+glucose indicates a profound physiological stress response, while CRP
+serves as a critical marker associated with disease progression.
+Immunologically, a decreased lymphocyte count is distinguished between
+the severe cohort from non-severe and non-COVID-19 patients, whereas
+WBC, monocyte and platelet counts remain relatively stable across
+groups. While liver stress markers (ALT and AST) show slight upward
+trends in severe cases, suggesting potential multi-organ involvement.
+Other parameters such as TBIL and DBIL do not show significant
+variation, indicating that the primary clinical signature of severity in
+this cohort is driven by acute inflammation and metabolic shifts rather
+than broad hepatic or biliary failure.
+
+\section*{session info}\label{session-info}
+\addcontentsline{toc}{section}{session info}
+
+R version 4.5.2 (2025-10-31) Platform: aarch64-apple-darwin20 Running
+under: macOS Tahoe 26.2
+
+Matrix products: default BLAS:
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK:
+/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;
+LAPACK version 3.12.1
+
+locale: {[}1{]}
+en\_US.UTF-8/en\_US.UTF-8/en\_US.UTF-8/C/en\_US.UTF-8/en\_US.UTF-8
+
+time zone: Europe/Madrid tzcode source: internal
+
+attached base packages: {[}1{]} stats graphics grDevices utils datasets
+methods base
+
+other attached packages: {[}1{]} pheatmap\_1.0.13 patchwork\_1.3.2
+ggstatsplot\_0.13.3 forcats\_1.0.1\\
+{[}5{]} purrr\_1.2.1 tibble\_3.3.1 tidyverse\_2.0.0 ggpubr\_0.6.2\\
+{[}9{]} tidyr\_1.3.2 ggplot2\_4.0.1 htmltools\_0.5.9 janitor\_2.2.1\\
+{[}13{]} table1\_1.5.1 lubridate\_1.9.4 readr\_2.1.6 stringr\_1.6.0\\
+{[}17{]} dplyr\_1.1.4 readxl\_1.4.5 knitr\_1.51
+
+loaded via a namespace (and not attached): {[}1{]} gtable\_0.3.6
+bayestestR\_0.17.0 xfun\_0.55\\
+{[}4{]} insight\_1.4.4 rstatix\_0.7.3 paletteer\_1.7.0\\
+{[}7{]} tzdb\_0.5.0 vctrs\_0.6.5 tools\_4.5.2\\
+{[}10{]} generics\_0.1.4 datawizard\_1.3.0 pkgconfig\_2.0.3\\
+{[}13{]} correlation\_0.8.8 RColorBrewer\_1.1-3 S7\_0.2.1\\
+{[}16{]} RcppParallel\_5.1.11-1 lifecycle\_1.0.5 compiler\_4.5.2\\
+{[}19{]} farver\_2.1.2 textshaping\_1.0.4 codetools\_0.2-20\\
+{[}22{]} carData\_3.0-5 snakecase\_0.11.1 yaml\_2.3.12\\
+{[}25{]} Formula\_1.2-5 pillar\_1.11.1 car\_3.1-3\\
+{[}28{]} statsExpressions\_1.7.1 abind\_1.4-8 tidyselect\_1.2.1\\
+{[}31{]} digest\_0.6.39 stringi\_1.8.7 rematch2\_2.1.2\\
+{[}34{]} labeling\_0.4.3 fastmap\_1.2.0 grid\_4.5.2\\
+{[}37{]} cli\_3.6.5 magrittr\_2.0.4 utf8\_1.2.6\\
+{[}40{]} broom\_1.0.11 withr\_3.0.2 scales\_1.4.0\\
+{[}43{]} backports\_1.5.0 timechange\_0.3.0 rmarkdown\_2.30\\
+{[}46{]} ggsignif\_0.6.4 cellranger\_1.1.0 ragg\_1.5.0\\
+{[}49{]} hms\_1.1.4 kableExtra\_1.4.0 evaluate\_1.0.5\\
+{[}52{]} parameters\_0.28.3 viridisLite\_0.4.2 rstantools\_2.6.0\\
+{[}55{]} rlang\_1.1.7 zeallot\_0.2.0 glue\_1.8.0\\
+{[}58{]} xml2\_1.5.2 effectsize\_1.0.1 svglite\_2.2.2\\
+{[}61{]} rstudioapi\_0.17.1 R6\_2.6.1 systemfonts\_1.3.1
+
+\end{document}

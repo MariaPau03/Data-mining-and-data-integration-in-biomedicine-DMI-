@@ -1,0 +1,186 @@
+
+---
+title: "DMI - Hands on 1"
+author: " Maria Pau Pijoan & Leyre Roca (u269315@upf.edu)"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"      
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
+```{r setup, include=FALSE}
+#install.packages("knitr") #can execute R code inside the R markdown documents
+
+#knitr::opts_chunk$set(echo = TRUE) #como se muestra el codigo, i TRUE significa que el cdigo R se muestra en el documento final (html, PDF,word)
+```
+
+
+This practical focuses on data wrangling, exploratory data analysis, visualization, and critical comparison with published results using real biomedical data.
+
+We will work with the publication [**Proteomic and Metabolomic Characterization of COVID-19 Patient Sera**](https://www.sciencedirect.com/science/article/pii/S0092867420306279)
+
+# Exercise 1  
+
+Download and load Supplementary Table 1 (“Additional Demographical and Baseline Characteristics of COVID-19 Patients and Control Groups”) from the supplementary materials of the publication.
+ 
+## Exercise 1.1  
+
+Reproduce Table 1 from the manuscript using the supplementary data. Match the reported summary statistics   as closely as possible.
+
+Briefly discuss any discrepancies between your results and the published table, and provide possible explanations.
+
+```{r}
+
+install.packages(c("readxl","dplyr","stringr","readr","lubridate","table1"))
+library(readxl)
+library(dplyr)
+library(stringr)
+library(readr)
+library(lubridate)
+library(table1)
+library(janitor)
+
+# 1) Read data---------
+
+df <- read_excel(
+  "H1/data/Raw/1-s2.0-S0092867420306279-mmc1.xlsx",
+  sheet = 2
+)
+
+dim(df)
+names(df)
+head(df)
+
+# 2) Clean names / recode variables ------
+df <- clean_names(df)
+
+
+## SEX:
+df <- df %>%
+  mutate(    #mutate creates new columns that are functions of existing variables
+    # sex: guess coding 1=Male, 2=Female (common)
+    sex = case_when(
+      sex_g == 1 ~ "Male",
+      sex_g == 0 ~ "Female",
+      TRUE ~ NA_character_
+    ) %>% factor(levels = c("Male","Female")),
+    
+
+
+    age = parse_number(as.character(age_year)),
+    
+    bmi = na_if(as.character(bmi_h), "/") %>% parse_number(),
+    
+    onset_date = as.Date(onset_date_f),
+    admission_date = as.Date(admission_date),
+    
+    #Excel serial dates for progression
+    prog_raw = as.character(date_of_progression_to_severe_state),
+    prog_raw = na_if(prog_raw, "/"), #na_if --> converts values to NA
+    prog_raw = na_if(prog_raw, ""),
+    prog_date = parse_date_time(prog_raw,
+                                orders = c("Ymd","Y-m-d","dmy","d/m/Y","m/d/Y","Y/m/d")) %>%
+      as.Date(),
+
+    onset_to_admission = as.numeric(admission_date - onset_date),
+    admission_to_severe = as.numeric(prog_date - admission_date)
+  )
+
+  
+# 5) Build the 5 Table-1 groups
+df <- df %>%
+  mutate(
+    cohort = case_when(
+      group_d == 0 ~ "Healthy Control",
+      group_d == 1 ~ "Non-COVID-19",
+      group_d == 2 ~ "Non-severe COVID-19",
+      group_d == 3 ~ "Severe COVID-19"
+    )
+  ) %>%
+  filter(!is.na(group))  # keep only valid coded rows
+
+
+df_total <- df %>% filter(group_d %in% c(2,3)) %>% mutate(group = "COVID-19 Total")  
+
+df5 <- bind_rows(df, df_total)
+
+df5$group <- factor(df5$group, levels = c("Healthy Control","Non-COVID-19","COVID-19 Total","Non-severe","Severe COVID-19"))
+
+df5 %>% count(group)
+#print(df5 %>% count(group)) write this on the terminal, where it should appear 65 COVID-19 as total. 
+
+# 4) Custom rendering to match the manuscript style
+
+my.render.cont <- function(x) {
+  x <- x[!is.na(x)]
+  if (length(x) == 0) return("")
+  m <- mean(x); s <- sd(x)
+  med <- median(x)
+  q <- quantile(x, c(.25,.75))
+  r <- range(x)
+  sprintf("Mean ± SD: %.1f ± %.1f\nMedian (IQR): %.1f (%.1f–%.1f)\nRange: %.1f–%.1f",
+          m, s, med, q[1], q[2], r[1], r[2])
+}
+
+my.render.cat <- function(x) render.categorical.default(x)
+
+# 5) Produce the Table 1
+ table1(
+   ~ sex + age + bmi + onset_to_admission + admission_to_severe | group, data = df5, 
+  render.continuous = my.render.cont,
+  render.categorical = my.render.cat,
+  overall = FALSE
+ ) |> 
+  htmltools::save_html("table1.html")
+
+
+
+```
+
+
+## Exercise 1.2
+Perform an exploratory data analysis (EDA) of the dataset. At a minimum, include:
+
+- Descriptive statistics for key variables  
+- Appropriate visualizations (e.g. distributions, group comparisons)  
+- A brief written summary of notable patterns, anomalies, or data quality issues  
+
+
+```{r}
+summary()
+
+```
+
+# Exercise 2
+## Exercise 2.1
+Reproduce Supplementary Figure 1 using the data without modifying or removing any observations. Use the same variables and groupings as in the original figure. 
+```{r}
+
+```
+
+
+## Exercise 2.2
+Identify and handle outliers using an appropriate and well-justified method (e.g. removal, transformation, or robust statistics).
+
+Reproduce Supplementary Figure 1 after outlier handling and discuss how and why the results change.
+```{r}
+
+```
+
+# Exercise 3
+Create a heatmap of the biomarker data. Include group and gender as annotation variables.
+
+```{r}
+
+```
+
+# Conclusion
+
+Write a concise conclusion (1 paragraphs) summarizing the main differences observed across the three patient groups based on the twelve clinical parameters. Support your statements with evidence from your analyses.
+
+# session info {.unnumbered}
+
+```{r, results='asis',  echo=FALSE, message=FALSE }
+sessionInfo()
+```
